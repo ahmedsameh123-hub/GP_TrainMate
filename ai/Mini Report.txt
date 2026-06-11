@@ -1,0 +1,162 @@
+Project File Structure & Purpose
+
+This project is a Smart Gym Assistant that performs real-time exercise recognition, repetition counting, user authentication, and an AI fitness chatbot using computer vision and deep learning.
+
+Below is an explanation of each file and its role in the system.
+
+Core Application Files
+
+1- main.py
+
+Purpose:
+The main entry point of the application.
+
+Responsibilities:
+
+Initializes the Streamlit app
+
+Handles authentication flow (login / register / logout)
+
+Collects user profile data (age, sex, height, weight)
+
+Controls navigation between:
+
+Video upload mode
+
+Webcam mode
+
+Automatic exercise classification
+
+AI chatbot
+
+Connects UI actions to exercise analysis logic
+
+2- ExerciseAiTrainer.py
+
+Purpose:
+Core exercise analysis engine.
+
+Responsibilities:
+
+Implements exercise-specific logic:
+
+Bicep Curl
+
+Push Up
+
+Squat
+
+Shoulder Press
+
+Performs:
+
+Pose tracking
+
+Angle calculations
+
+Repetition counting
+
+Supports:
+
+Webcam input
+
+Uploaded video input
+
+Automatic exercise classification using the trained LSTM model
+
+3- AiTrainer_utils.py
+
+Purpose:
+Utility functions shared across the exercise engine.
+
+Responsibilities:
+
+Joint angle calculations
+
+Drawing skeletons and keypoints
+
+Text overlays (rep counters, exercise names)
+
+Helper math and visualization utilities
+
+PoseModule2.py
+
+Purpose:
+Human pose estimation wrapper.
+
+Responsibilities:
+
+Uses MediaPipe to detect body landmarks
+
+Extracts joint coordinates
+
+Tracks body pose across frames
+
+Acts as the low-level pose detection layer used by ExerciseAiTrainer.py
+
+AI & Machine Learning Files
+4- model_training.py
+
+Purpose:
+Offline model training script.
+
+Responsibilities:
+
+Loads preprocessed pose datasets
+
+Trains a Bidirectional LSTM model
+
+Performs multi-class exercise classification
+
+Saves the final trained model (.h5)
+
+This file is not required to run the app, only for training or retraining the model.
+
+5- dataset_preprocessing.py
+
+Purpose:
+Dataset preparation pipeline.
+
+Responsibilities:
+
+Converts raw pose data into numerical sequences
+
+Generates:
+
+Feature arrays (X.npy)
+
+Labels (y.npy)
+
+Label mappings (labels.json)
+
+Ensures data is suitable for LSTM input
+
+thesis_bidirectionallstm_label_encoder.pkl
+thesis_bidirectionallstm_scaler.pkl
+
+Purpose:
+Preprocessing artifacts.
+
+Responsibilities:
+
+Encode class labels
+
+Normalize pose features
+
+Ensure consistency between training and inference
+
+Chatbot & AI Assistant
+6- chatbot.py
+
+Purpose:
+AI Fitness Chatbot interface.
+
+Responsibilities:
+
+Provides conversational fitness assistance
+
+Uses an LLM API (Groq / OpenAI compatible)
+
+Maintains chat history using Streamlit session state
+
+Acts as a personal AI fitness trainer inside the app
